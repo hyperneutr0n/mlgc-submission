@@ -1,0 +1,22 @@
+{
+  "name": "mlgc-submission",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "dev": "nodemon ./src/server/server.js",
+    "start": "node ./src/server/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/firestore": "^7.10.0",
+    "@tensorflow/tfjs-node": "^3.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
