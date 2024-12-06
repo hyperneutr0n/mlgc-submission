@@ -2,6 +2,7 @@ const multer = require('multer');
 const crypto = require('crypto');
 const classfication = require("./services/inference");
 const loadModel = require('./services/loadModel');
+const { storeData, getData } = require('./services/manageData');
 
 const upload = multer({
   limits: { fileSize: 1000000 },
@@ -51,6 +52,10 @@ async function predict(req, res) {
       createdAt: new Date().toISOString()
     };
 
+    console.log('Saving prediction to database');
+    await storeData(data.id, data);
+    console.log('Data saved to database');
+
     return res.status(201).json({
       status: "success",
       message: "Model is predicted successfully",
@@ -73,4 +78,19 @@ async function predict(req, res) {
   }
 }
 
-module.exports = predict;
+async function histories(req, res) {
+  try {
+    const result = await getData();
+
+    return res.status(200).json({
+      status: "success",
+      data: result,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Terjadi kesalahan dalam melakukan fetch data",
+    });
+  }
+}
+module.exports = { predict, histories };
